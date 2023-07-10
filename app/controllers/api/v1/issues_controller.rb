@@ -27,7 +27,7 @@ class Api::V1::IssuesController < ApplicationController
       params.require(:issue).permit(:summary, :description, :issue_type, :priority, :board)
     end
 
-    def issue
+    def fetch_issue
       @issue = Issue.find_by(id: params[:id])
     end
 end
