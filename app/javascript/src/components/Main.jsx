@@ -27,7 +27,7 @@ const Main = () => {
       <Title className="p-8" level={3}>
         Kanban board
       </Title>
-      <div className="grid grid-cols-4 px-10 column-height col-gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-4 lg:px-10 px-2 column-height row-gap-2 lg:col-gap-2">
         {boards.map(board => (
           <Board
             boardName={board}
