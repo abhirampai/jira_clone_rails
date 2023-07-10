@@ -25,12 +25,14 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@babel/core": "7",
     "@babel/plugin-transform-runtime": "7",
     "@babel/preset-env": "7",
     "@babel/preset-react": "^7.22.5",
     "@babel/runtime": "7",
     "@svgr/webpack": "^8.0.1",
+    "antd": "^5.6.4",
     "axios": "^1.4.0",
     "babel-loader": "8",
     "babel-plugin-dynamic-import-node": "^2.3.3",
