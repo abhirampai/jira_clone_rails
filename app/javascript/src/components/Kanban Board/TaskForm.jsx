@@ -22,7 +22,7 @@ const issueTypeIcons = {
   task: CheckCircleTwoTone,
 };
 
-const { Paragraph } = Typography;
+const { Text } = Typography;
 
 const TaskForm = ({ issue }) => {
   const [form] = Form.useForm();
@@ -44,13 +44,13 @@ const TaskForm = ({ issue }) => {
       <Form.Item label="Description">
         <Input type="textarea" value={description} />
       </Form.Item>
-      <div className="flex space-y-2 items-center">
+      <div className="flex space-x-2 items-center">
         <PriorityIcon className="text-lg" />
-        <Paragraph>{priority}</Paragraph>
+        <Text>{priority}</Text>
       </div>
-      <div className="flex space-y-2 items-center">
+      <div className="flex space-x-2 items-center">
         <IssueTypeIcon className="text-lg" />
-        <Paragraph>{issue_type}</Paragraph>
+        <Text>{issue_type}</Text>
       </div>
     </Form>
   );
