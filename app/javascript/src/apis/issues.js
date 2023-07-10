@@ -4,6 +4,4 @@ const url = "/api/v1/issues";
 
 const get = () => axios.get(url);
 
-export default {
-  get,
-};
+export { get };
