@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  generic_error: "Something went wrong. Please try again later."
+  issues:
+    created_successfully: "Issue created successfully"
+    updated_successfully: "Issue updated successfully"
