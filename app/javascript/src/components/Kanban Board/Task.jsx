@@ -24,13 +24,16 @@ const issueTypeIcons = {
   task: CheckCircleTwoTone,
 };
 
-const Task = ({ issue }) => {
+const Task = ({ issue, setSelectedId }) => {
   const { summary, priority, issue_type } = issue;
   const PriorityIcon = priorityIcons[priority];
   const IssueTypeIcon = issueTypeIcons[issue_type];
 
   return (
-    <div className="bg-white p-2">
+    <div
+      className="bg-white p-2 hover:border-gray-500 border"
+      onClick={() => setSelectedId(issue.id)}
+    >
       <Paragraph className="mb-8" ellipsis={{ rows: 2, expandable: false }}>
         {summary}
       </Paragraph>

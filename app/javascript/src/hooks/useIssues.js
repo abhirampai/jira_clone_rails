@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
 
-import { get } from "apis/issues";
+import { index, get } from "apis/issues";
 
-const useFetchAllIssues = () => useQuery("issues", get);
+const useFetchAllIssues = () => useQuery("issues", index);
 
-export { useFetchAllIssues };
+const useFetchIssue = id =>
+  useQuery(["issue", id], () => get(id), { enabled: id !== null });
+
+export { useFetchAllIssues, useFetchIssue };

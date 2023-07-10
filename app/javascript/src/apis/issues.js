@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const url = "/api/v1/issues";
+const fetchUrl = "/api/v1/issues";
+const getUrl = id => `${fetchUrl}/${id}`;
 
-const get = () => axios.get(url);
+const index = () => axios.get(fetchUrl);
+const get = id => axios.get(getUrl(id));
 
-export { get };
+export { index, get };

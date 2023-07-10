@@ -1,5 +1,6 @@
 import React from "react";
 
+// eslint-disable-next-line import/order
 import { Typography, Layout, theme } from "antd";
 
 import { useFetchAllIssues } from "hooks/useIssues";
