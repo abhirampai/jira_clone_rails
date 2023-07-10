@@ -72,3 +72,9 @@ end
 gem "shakapacker"
 
 gem "react-rails"
+
+gem "responders"
+
+gem "pundit"
+
+gem "pry-byebug"
