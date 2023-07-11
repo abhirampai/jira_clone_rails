@@ -39,13 +39,16 @@ const issueTypeOptions = createOptions(
 const TaskForm = ({ issue, onClose }) => {
   const [form] = Form.useForm();
   const { summary, description, priority, issue_type } = issue;
-  const { mutateAsync: updateIssue } = useUpdateIssue(issue.id);
+  const { mutateAsync: updateIssue } = useUpdateIssue();
 
   const findDefaultValue = (value, list) =>
     list.find(({ label }) => label.toLowerCase() === value).value;
 
-  const onSubmit = values => {
-    updateIssue(values, { onSuccess: onClose() });
+  const onSubmit = async values => {
+    await updateIssue(
+      { id: issue.id, payload: values },
+      { onSuccess: onClose() }
+    );
   };
 
   const intialValues = {
