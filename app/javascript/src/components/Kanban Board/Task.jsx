@@ -24,7 +24,9 @@ const issueTypeIcons = {
   task: CheckCircleTwoTone,
 };
 
-const Task = ({ issue, setSelectedId }) => {
+const noop = () => {};
+
+const Task = ({ issue, setSelectedId = noop }) => {
   const { summary, priority, issue_type } = issue;
   const PriorityIcon = priorityIcons[priority];
   const IssueTypeIcon = issueTypeIcons[issue_type];
