@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 import { Layout } from "antd";
-import { QueryClientProvider, QueryClient } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
-import { setAuthHeaders } from "apis/axios";
+import { setAuthHeaders, registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
 import Main from "components/Main";
 import NavBar from "components/Navbar/Navbar";
 
+import queryClient from "./queryClient";
+
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const queryClient = new QueryClient();
 
   useEffect(() => {
     initializeLogger();
+    registerIntercepts();
     setAuthHeaders(setLoading);
   }, []);
 

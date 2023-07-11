@@ -13,13 +13,13 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 const Main = () => {
-  const { data, isLoading } = useFetchAllIssues();
+  const { data, isLoading, isFetching } = useFetchAllIssues();
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || isFetching) return <div>Loading...</div>;
 
   const { boards, issues, total_issues_count } = data.data;
 

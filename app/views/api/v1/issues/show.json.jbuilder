@@ -4,4 +4,5 @@ json.extract! @issue,
   :id,
   :summary,
   :priority,
-  :issue_type
+  :issue_type,
+  :description
