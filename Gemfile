@@ -78,3 +78,6 @@ gem "responders"
 gem "pundit"
 
 gem "pry-byebug"
+
+# Adds easy searching
+gem "ransack"

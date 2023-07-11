@@ -8,6 +8,7 @@ import { useFetchAllIssues } from "hooks/useIssues";
 import CreateIssue from "./CreateIssue";
 import HeaderBar from "./Header/HeaderBar";
 import Board from "./Kanban Board/Board";
+import SearchModal from "./SearchModal";
 import { findIssues } from "./utils";
 
 const { Title } = Typography;
@@ -16,6 +17,7 @@ const { Header, Content, Footer } = Layout;
 
 const Main = () => {
   const [createIssueModalOpen, setCreateIssueModalOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   const { data, isLoading, isFetching } = useFetchAllIssues();
 
@@ -32,7 +34,10 @@ const Main = () => {
   return (
     <>
       <Header className="bg-white p-0">
-        <HeaderBar openModal={() => setCreateIssueModalOpen(true)} />
+        <HeaderBar
+          openCreateIssueModal={() => setCreateIssueModalOpen(true)}
+          openSearchModal={() => setSearchModalOpen(true)}
+        />
       </Header>
       <Divider />
       <Content
@@ -60,6 +65,10 @@ const Main = () => {
       <Footer className="bg-white text-center">
         ©2023 Created by Abhiram Pai
       </Footer>
+      <SearchModal
+        open={searchModalOpen}
+        onClose={() => setSearchModalOpen(false)}
+      />
       <CreateIssue
         open={createIssueModalOpen}
         onClose={() => setCreateIssueModalOpen(false)}

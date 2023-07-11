@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation, useQuery } from "react-query";
 
-import { index, get, create, update } from "apis/issues";
+import { index, get, create, update, search } from "apis/issues";
 
 const useFetchAllIssues = () => useQuery(["issues"], index);
 
@@ -26,4 +26,16 @@ const useUpdateIssue = () => {
   });
 };
 
-export { useFetchAllIssues, useFetchIssue, useUpdateIssue, useCreateIssue };
+const useSearchIssue = searchQuery =>
+  useQuery(["issues", searchQuery], () => search(searchQuery), {
+    enabled: !!searchQuery,
+    keepPreviousData: false,
+  });
+
+export {
+  useFetchAllIssues,
+  useFetchIssue,
+  useUpdateIssue,
+  useCreateIssue,
+  useSearchIssue,
+};
