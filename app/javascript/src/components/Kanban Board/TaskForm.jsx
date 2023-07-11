@@ -11,7 +11,7 @@ import {
 import { Input, Typography, Form, Select, Button, Divider } from "antd";
 
 import { createOptions } from "components/utils";
-import { useUpdateIssue } from "hooks/useIssues";
+import { useUpdateIssue, useCreateIssue } from "hooks/useIssues";
 
 const priorityIcons = {
   high: ArrowUpOutlined,
@@ -36,19 +36,21 @@ const issueTypeOptions = createOptions(
   issueTypeIcons
 );
 
-const TaskForm = ({ issue, onClose }) => {
+const TaskForm = ({ issue, onClose, type = "edit" }) => {
   const [form] = Form.useForm();
   const { summary, description, priority, issue_type } = issue;
   const { mutateAsync: updateIssue } = useUpdateIssue();
+  const { mutateAsync: createIssue } = useCreateIssue();
 
   const findDefaultValue = (value, list) =>
-    list.find(({ label }) => label.toLowerCase() === value).value;
+    list.find(({ label }) => label.toLowerCase() === value)?.value || value;
 
-  const onSubmit = async values => {
-    await updateIssue(
-      { id: issue.id, payload: values },
-      { onSuccess: onClose() }
-    );
+  const onSubmit = values => {
+    if (type === "edit") {
+      updateIssue({ id: issue.id, payload: values }, { onSuccess: onClose() });
+    } else {
+      createIssue(values, { onSuccess: onClose() });
+    }
   };
 
   const intialValues = {
