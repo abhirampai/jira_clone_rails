@@ -37,7 +37,7 @@ const App = () => {
           </Layout>
         </Router>
       </Layout>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
   );
 };
