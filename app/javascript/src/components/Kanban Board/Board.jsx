@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 import { Typography } from "antd";
 
+import { useUpdateIssue } from "hooks/useIssues";
+
 import Task from "./Task";
 import TaskDrawer from "./TaskDrawer";
 
 const { Title, Paragraph } = Typography;
 
-const Board = ({ issues, boardName, total_issues_count }) => {
+const Board = ({ issues, boardName, total_issues_count, index }) => {
   const [selectedIssueId, setSelectedIssueId] = useState(false);
 
   const { board_total_count, issues: issueArray } = issues || {
@@ -15,8 +17,23 @@ const Board = ({ issues, boardName, total_issues_count }) => {
     issueArray: [],
   };
 
+  const { mutateAsync: updateIssue } = useUpdateIssue();
+
+  const handleOnDrop = e => {
+    const issue = JSON.parse(e.dataTransfer.getData("draggedIssue"));
+    updateIssue({ id: issue.id, payload: { board: index } });
+  };
+
+  const handleOnDragOver = e => {
+    e.preventDefault();
+  };
+
   return (
-    <div className="bg-gray-200 column-height overflow-scroll mb-5">
+    <div
+      className="bg-gray-200 column-height overflow-scroll mb-5"
+      onDragOver={handleOnDragOver}
+      onDrop={handleOnDrop}
+    >
       <div className="flex justify-between p-4">
         <Title level={4}>{boardName}</Title>
         <Paragraph>

@@ -29,10 +29,16 @@ const Task = ({ issue, setSelectedId }) => {
   const PriorityIcon = priorityIcons[priority];
   const IssueTypeIcon = issueTypeIcons[issue_type];
 
+  const handleOnDrag = (e, issue) => {
+    e.dataTransfer.setData("draggedIssue", JSON.stringify(issue));
+  };
+
   return (
     <div
+      draggable
       className="bg-white p-2 hover:border-gray-500 border"
       onClick={() => setSelectedId(issue.id)}
+      onDragStart={e => handleOnDrag(e, issue)}
     >
       <Paragraph className="mb-8" ellipsis={{ rows: 2, expandable: false }}>
         {summary}
