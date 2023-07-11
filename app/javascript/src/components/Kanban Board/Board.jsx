@@ -21,6 +21,8 @@ const Board = ({ issues, boardName, total_issues_count, index }) => {
 
   const handleOnDrop = e => {
     const issue = JSON.parse(e.dataTransfer.getData("draggedIssue"));
+    if (issueArray.find(({ id }) => id === issue.id)) return;
+
     updateIssue({ id: issue.id, payload: { board: index } });
   };
 
