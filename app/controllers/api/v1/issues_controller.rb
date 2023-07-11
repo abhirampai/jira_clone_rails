@@ -18,6 +18,7 @@ class Api::V1::IssuesController < ApplicationController
   end
 
   def update
+    @issue.update(issue_params)
     render_notice(t("issues.updated_successfully"))
   end
 

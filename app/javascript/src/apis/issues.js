@@ -5,5 +5,6 @@ const getUrl = id => `${fetchUrl}/${id}`;
 
 const index = () => axios.get(fetchUrl);
 const get = id => axios.get(getUrl(id));
+const update = (id, payload) => axios.put(getUrl(id), { issue: payload });
 
-export { index, get };
+export { index, get, update };

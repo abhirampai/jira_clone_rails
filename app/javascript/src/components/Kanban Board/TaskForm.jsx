@@ -8,7 +8,10 @@ import {
   BugTwoTone,
   CheckCircleTwoTone,
 } from "@ant-design/icons";
-import { Input, Typography, Form } from "antd";
+import { Input, Typography, Form, Select, Button, Divider } from "antd";
+
+import { createOptions } from "components/utils";
+import { useUpdateIssue } from "hooks/useIssues";
 
 const priorityIcons = {
   high: ArrowUpOutlined,
@@ -23,34 +26,84 @@ const issueTypeIcons = {
 };
 
 const { Text } = Typography;
+const { Option } = Select;
+const { TextArea } = Input;
 
-const TaskForm = ({ issue }) => {
+const priorityOptions = createOptions(["medium", "low", "high"], priorityIcons);
+
+const issueTypeOptions = createOptions(
+  ["task", "bug", "story"],
+  issueTypeIcons
+);
+
+const TaskForm = ({ issue, onClose }) => {
   const [form] = Form.useForm();
   const { summary, description, priority, issue_type } = issue;
+  const { mutateAsync: updateIssue } = useUpdateIssue(issue.id);
 
-  const PriorityIcon = priorityIcons[priority];
-  const IssueTypeIcon = issueTypeIcons[issue_type];
+  const findDefaultValue = (value, list) =>
+    list.find(({ label }) => label.toLowerCase() === value).value;
+
+  const onSubmit = values => {
+    updateIssue(values, { onSuccess: onClose() });
+  };
+
+  const intialValues = {
+    summary,
+    description,
+    priority: findDefaultValue(priority, priorityOptions),
+    issue_type: findDefaultValue(issue_type, issueTypeOptions),
+  };
 
   return (
     <Form
-      className="flex flex-col space-y-4"
       form={form}
-      initialValues={issue}
+      initialValues={intialValues}
       layout="vertical"
+      onFinish={onSubmit}
     >
-      <Form.Item label="Summary">
-        <Input className="border hover:border-gray-500" value={summary} />
+      <Form.Item label="Summary" name="summary">
+        <Input value={summary} />
       </Form.Item>
-      <Form.Item label="Description">
-        <Input type="textarea" value={description} />
+      <Form.Item label="Description" name="description">
+        <TextArea rows={3} value={description} />
       </Form.Item>
-      <div className="flex space-x-2 items-center">
-        <PriorityIcon className="text-lg" />
-        <Text>{priority}</Text>
-      </div>
-      <div className="flex space-x-2 items-center">
-        <IssueTypeIcon className="text-lg" />
-        <Text>{issue_type}</Text>
+      <Form.Item label="Priority" name="priority">
+        <Select placeholder="select priority" style={{ width: "100%" }}>
+          {priorityOptions.map(({ value, label, icon: Icon }) => (
+            <Option key={value} label={label} value={value}>
+              <div className="flex items-center space-x-2 pt-1">
+                <Icon />
+                <Text>{label}</Text>
+              </div>
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item label="Type" name="issue_type">
+        <Select placeholder="select type" style={{ width: "100%" }}>
+          {issueTypeOptions.map(({ value, label, icon: Icon }) => (
+            <Option key={value} label={label} value={value}>
+              <div className="flex items-center space-x-2 pt-1">
+                <Icon />
+                <Text>{label}</Text>
+              </div>
+            </Option>
+          ))}
+        </Select>
+      </Form.Item>
+      <div className="absolute bottom-0 left-0 w-full">
+        <Divider style={{ width: "100%" }} />
+        <Form.Item>
+          <div className="flex space-x-4 justify-end pr-5">
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            <Button htmlType="button" onClick={onClose}>
+              Close
+            </Button>
+          </div>
+        </Form.Item>
       </div>
     </Form>
   );
