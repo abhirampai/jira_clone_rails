@@ -27,6 +27,8 @@ const Main = () => {
 
   const { boards, issues, total_issues_count } = data.data;
 
+  const boardsObject = boards.reduce((a, v, i) => ({ ...a, [v]: i }), {});
+
   return (
     <>
       <Header className="bg-white p-0">
@@ -46,6 +48,7 @@ const Main = () => {
           {boards.map(board => (
             <Board
               boardName={board}
+              index={boardsObject[board]}
               issues={findIssues(board, issues)}
               key={board}
               total_issues_count={total_issues_count}

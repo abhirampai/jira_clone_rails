@@ -9,14 +9,7 @@ import TaskDrawer from "./TaskDrawer";
 
 const { Title, Paragraph } = Typography;
 
-const boards = {
-  Backlog: 0,
-  "In development": 1,
-  "In progress": 2,
-  Completed: 3,
-};
-
-const Board = ({ issues, boardName, total_issues_count }) => {
+const Board = ({ issues, boardName, total_issues_count, index }) => {
   const [selectedIssueId, setSelectedIssueId] = useState(false);
 
   const { board_total_count, issues: issueArray } = issues || {
@@ -28,7 +21,7 @@ const Board = ({ issues, boardName, total_issues_count }) => {
 
   const handleOnDrop = e => {
     const issue = JSON.parse(e.dataTransfer.getData("draggedIssue"));
-    updateIssue({ id: issue.id, payload: { board: boards[boardName] } });
+    updateIssue({ id: issue.id, payload: { board: index } });
   };
 
   const handleOnDragOver = e => {
