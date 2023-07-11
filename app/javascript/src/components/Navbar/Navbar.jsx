@@ -1,13 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  PlusOutlined,
-  SearchOutlined,
-  HomeOutlined,
-} from "@ant-design/icons";
-import { Button, Menu, Layout } from "antd";
+import { ProjectOutlined, HomeOutlined } from "@ant-design/icons";
+import { Menu, Layout } from "antd";
 
 const { Sider } = Layout;
 
@@ -21,33 +15,34 @@ const getItem = (label, key, icon, children, type) => ({
 
 const MenuItems = [
   getItem("Dashboard", "1", <HomeOutlined className="text-lg" />),
-  getItem("Search Issues", "2", <SearchOutlined className="text-lg" />),
-  getItem("Create Issues", "3", <PlusOutlined className="text-lg" />),
 ];
 
-const NavBar = () => {
-  const [collapsed, setCollapsed] = useState(true);
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
-
-  return (
-    <Sider collapsible collapsed={collapsed} trigger={null}>
-      <div className="w-full justify-center flex mt-4">
-        <Button className="mb-8" type="primary" onClick={toggleCollapsed}>
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </Button>
-      </div>
+const NavBar = () => (
+  <Sider
+    collapsed
+    trigger={null}
+    style={{
+      overflow: "auto",
+      height: "100vh",
+      position: "fixed",
+      left: 0,
+      top: 0,
+      bottom: 0,
+    }}
+  >
+    <div>
+      <ProjectOutlined />
+    </div>
+    <div className="pt-10">
       <Menu
         defaultOpenKeys={["sub1"]}
         defaultSelectedKeys={["1"]}
-        inlineCollapsed={collapsed}
         items={MenuItems}
         mode="inline"
         theme="dark"
       />
-    </Sider>
-  );
-};
+    </div>
+  </Sider>
+);
 
 export default NavBar;

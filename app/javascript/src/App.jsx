@@ -8,7 +8,6 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { setAuthHeaders, registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
 import Main from "components/Main";
-import NavBar from "components/Navbar/Navbar";
 
 import queryClient from "./queryClient";
 
@@ -29,8 +28,8 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Layout hasSider className="min-h-screen">
         <Router>
-          <NavBar />
-          <Layout>
+          {/* <NavBar /> */}
+          <Layout className="pl-5 pr-6">
             <Switch>
               <Route exact path="/" render={() => <Main />} />
               <Route exact path="/about" render={() => <div>About</div>} />
