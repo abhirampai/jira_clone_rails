@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Not so similar clone for jira 😆. [WIP]
 
-Things you may want to cover:
+![image](https://github.com/abhirampai/jira_clone_rails/assets/36255896/bd3792a2-ce4a-40ea-829e-dacb18bc02df)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
