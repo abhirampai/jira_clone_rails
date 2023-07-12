@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Typography } from "antd";
 
 import { useUpdateIssue } from "hooks/useIssues";
+import useIssueStore from "hooks/useIssueStore";
 
 import Task from "./Task";
 import TaskDrawer from "./TaskDrawer";
@@ -10,7 +11,8 @@ import TaskDrawer from "./TaskDrawer";
 const { Title, Paragraph } = Typography;
 
 const Board = ({ issues, boardName, total_issues_count, index }) => {
-  const [selectedIssueId, setSelectedIssueId] = useState(false);
+  const issueId = useIssueStore(state => state.issueId);
+  const setIssueId = useIssueStore(state => state.setIssueId);
 
   const { board_total_count, issues: issueArray } = issues || {
     board_total_count: 0,
@@ -49,14 +51,14 @@ const Board = ({ issues, boardName, total_issues_count, index }) => {
               <Task
                 issue={issue}
                 key={issue.id}
-                setSelectedId={setSelectedIssueId}
+                setSelectedId={() => setIssueId(issue.id)}
               />
             ))}
-            {selectedIssueId && (
+            {issueId && (
               <TaskDrawer
-                issueId={selectedIssueId}
-                open={selectedIssueId}
-                onClose={() => setSelectedIssueId(false)}
+                issueId={issueId}
+                open={issueId}
+                onClose={() => setIssueId(null)}
               />
             )}
           </>

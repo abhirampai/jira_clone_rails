@@ -36,6 +36,19 @@ const commonOptions = {
     }),
   ],
   ignoreWarnings: [/Failed to parse source map/],
+  devServer: {
+    client: {
+      overlay: {
+        runtimeErrors: error => {
+          if (error.message === "ResizeObserver loop limit exceeded") {
+            return false;
+          }
+
+          return true;
+        },
+      },
+    },
+  },
 };
 
 // This rule is causing issues to react-svg-loader

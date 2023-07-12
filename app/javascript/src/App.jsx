@@ -32,7 +32,6 @@ const App = () => {
           <Layout className="pl-5 pr-6">
             <Switch>
               <Route exact path="/" render={() => <Main />} />
-              <Route exact path="/about" render={() => <div>About</div>} />
             </Switch>
           </Layout>
         </Router>

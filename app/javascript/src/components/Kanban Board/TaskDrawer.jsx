@@ -6,13 +6,13 @@ import { Drawer } from "antd";
 import TaskForm from "components/Kanban Board/TaskForm";
 import { useFetchIssue } from "hooks/useIssues";
 
-const TaskDrawer = ({ open, onClose, issueId }) => {
+const TaskDrawer = ({ onClose, issueId }) => {
   const { data, isLoading, isFetching } = useFetchIssue(issueId);
 
   const issue = data?.data;
 
   return (
-    <Drawer open={open} placement="right" title="Issue" onClose={onClose}>
+    <Drawer open={issueId} placement="right" title="Issue" onClose={onClose}>
       {isLoading || isFetching ? (
         <div>Loadding...</div>
       ) : (
