@@ -22,7 +22,7 @@ class Issue < ApplicationRecord
 
   validates :summary, presence: true
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_associations(auth_object = nil)
     []
   end
 end
