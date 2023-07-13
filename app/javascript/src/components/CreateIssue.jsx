@@ -8,8 +8,8 @@ const CreateIssue = ({ open, onClose }) => {
   const issue = {
     summary: "",
     description: "",
-    issue_type: 0,
-    priority: 0,
+    issue_type: "task",
+    priority: "low",
   };
 
   return (
