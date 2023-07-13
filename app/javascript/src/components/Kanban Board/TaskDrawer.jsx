@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
 import React from "react";
 
-import { Drawer } from "antd";
+import { Drawer, Spin } from "antd";
 
 import TaskForm from "components/Kanban Board/TaskForm";
 import { useFetchIssue } from "hooks/useIssues";
@@ -14,7 +14,11 @@ const TaskDrawer = ({ onClose, issueId }) => {
   return (
     <Drawer open={issueId} placement="right" title="Issue" onClose={onClose}>
       {isLoading || isFetching ? (
-        <div>Loadding...</div>
+        <div className="modal-loader">
+          <Spin tip="Loading">
+            <div className="content" />
+          </Spin>
+        </div>
       ) : (
         <TaskForm issue={issue} onClose={onClose} />
       )}
