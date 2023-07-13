@@ -25,4 +25,8 @@ class Issue < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["board", "created_at", "description", "id", "issue_type", "priority", "summary", "updated_at"]
+  end
 end
