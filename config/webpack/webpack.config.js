@@ -1,9 +1,8 @@
 const process = require("process");
 
 const Dotenv = require("dotenv-webpack");
-const { generateWebpackConfig, merge } = require("shakapacker");
+const { webpackConfig, merge } = require("shakapacker");
 const webpack = require("webpack");
-const webpackConfig = generateWebpackConfig();
 
 const customizeWebpackDefaultRules = require("./helpers/customize-default-rules");
 const resolve = require("./resolve");
