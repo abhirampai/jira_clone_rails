@@ -1,6 +1,10 @@
 {
   "name": "app",
   "private": true,
+  "engines": {
+    "node": "18.12",
+    "yarn": "1.22.x"
+  },
   "lint-staged": {
     "app/**/*.{js,jsx,json}": [
       "prettier --write",
