@@ -1,0 +1,49 @@
+previewsEnabled: true
+
+envVarGroups:
+  - name: kanban_board_env_variables
+    envVars:
+      - key: RESET_DATABASE_WITH_SAMPLE_DATA
+        value: true
+      - key: RACK_ENV
+        value: heroku
+      - key: RAILS_ENV
+        value: heroku
+      - key: HEROKU_APP_NAME
+        value: true
+      - key: LOG_LEVEL
+        value: DEBUG
+      - key: YARN_PRODUCTION
+        value: true
+      - key: NODE_MODULES_CACHE
+        value: true
+      - key: YARN_CACHE
+        value: true
+      - key: DISABLE_RACK_ATTACK
+        value: true
+      - key: DEFAULT_PASSWORD
+        value: welcome
+      - key: DEFAULT_SUBDOMAIN
+        value: app
+      - key: CLIENT_AUTHENTICATION_TOKEN
+        value: mysecrettoken123%&^@
+
+databases:
+  - name: kanban_board_database
+    databaseName: kanban_board_database
+    user: kanban_board_database_user
+
+services:
+  - type: web
+    name: kanban_board
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - fromGroup: kanban_board_env_variables
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kanban_board_database
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
