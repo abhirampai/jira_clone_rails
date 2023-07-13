@@ -1,8 +1,9 @@
 const process = require("process");
 
 const Dotenv = require("dotenv-webpack");
-const { webpackConfig, merge } = require("shakapacker");
+const { generateWebpackConfig, merge } = require("shakapacker");
 const webpack = require("webpack");
+const webpackConfig = generateWebpackConfig();
 
 const customizeWebpackDefaultRules = require("./helpers/customize-default-rules");
 const resolve = require("./resolve");
@@ -36,19 +37,6 @@ const commonOptions = {
     }),
   ],
   ignoreWarnings: [/Failed to parse source map/],
-  devServer: {
-    client: {
-      overlay: {
-        runtimeErrors: error => {
-          if (error.message === "ResizeObserver loop limit exceeded") {
-            return false;
-          }
-
-          return true;
-        },
-      },
-    },
-  },
 };
 
 // This rule is causing issues to react-svg-loader
