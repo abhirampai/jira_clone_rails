@@ -6,9 +6,9 @@ envVarGroups:
       - key: RESET_DATABASE_WITH_SAMPLE_DATA
         value: true
       - key: RACK_ENV
-        value: heroku
+        value: production
       - key: RAILS_ENV
-        value: heroku
+        value: production
       - key: HEROKU_APP_NAME
         value: true
       - key: LOG_LEVEL
