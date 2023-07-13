@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // eslint-disable-next-line import/order
-import { Typography, Layout, theme, Divider } from "antd";
+import { Typography, Layout, theme, Divider, Spin } from "antd";
 
 import { useFetchAllIssues } from "hooks/useIssues";
 
@@ -25,7 +25,15 @@ const Main = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (isLoading || isFetching) {
+    return (
+      <div className="loader">
+        <Spin size="large" tip="Loading">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
+  }
 
   const { boards, issues, total_issues_count } = data.data;
 

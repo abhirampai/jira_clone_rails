@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Modal, Input, Space, Empty } from "antd";
+import { Modal, Input, Space, Empty, Spin } from "antd";
 
 import useDebounce from "hooks/useDebounce";
 import { useSearchIssue } from "hooks/useIssues";
@@ -47,7 +47,11 @@ const SearchModal = ({ open, onClose }) => {
         onChange={e => setSearchQuery(e.target.value)}
       />
       {isLoading || isFetching ? (
-        <div>Loading...</div>
+        <div className="modal-loader">
+          <Spin tip="Loading">
+            <div className="content" />
+          </Spin>
+        </div>
       ) : (
         <>{data && <RenderTasks issues={data.data.issues || []} />}</>
       )}

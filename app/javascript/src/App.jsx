@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
@@ -21,7 +21,13 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="loader">
+        <Spin size="large" tip="Loading">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
   }
 
   return (
