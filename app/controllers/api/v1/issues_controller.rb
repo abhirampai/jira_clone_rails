@@ -34,7 +34,7 @@ class Api::V1::IssuesController < ApplicationController
     end
 
     def search_query
-      Issue.ransack(id_or_summary_or_description_or_priority_or_issue_type_cont: params[:search]).result.distinct
+      Issue.ransack(summary_or_description_cont: params[:search]).result.distinct
     end
 
     def fetch_issue
