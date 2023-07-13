@@ -43,7 +43,7 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
   const { mutateAsync: createIssue } = useCreateIssue();
 
   const findDefaultValue = (value, list) =>
-    list.find(({ label }) => label.toLowerCase() === value)?.value || value;
+    list.find(({ label }) => label.toLowerCase() === value)?.value;
 
   const onSubmit = values => {
     if (type === "edit") {
