@@ -16,9 +16,9 @@ envVarGroups:
       - key: YARN_PRODUCTION
         value: true
       - key: NODE_MODULES_CACHE
-        value: true
+        value: false
       - key: YARN_CACHE
-        value: true
+        value: false
       - key: DISABLE_RACK_ATTACK
         value: true
       - key: DEFAULT_PASSWORD
