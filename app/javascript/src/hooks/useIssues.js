@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation, useQuery } from "react-query";
 
-import { index, get, create, update, search } from "apis/issues";
+import { index, get, create, update, search, destroy } from "apis/issues";
 
 const useFetchAllIssues = () => useQuery(["issues"], index);
 
@@ -32,10 +32,22 @@ const useSearchIssue = searchQuery =>
     keepPreviousData: false,
   });
 
+const useDestroyIssue = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(destroy, {
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries(["issues"]);
+      queryClient.removeQueries(["issues", id]);
+    },
+  });
+};
+
 export {
   useFetchAllIssues,
   useFetchIssue,
   useUpdateIssue,
   useCreateIssue,
   useSearchIssue,
+  useDestroyIssue,
 };

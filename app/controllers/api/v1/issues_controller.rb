@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::IssuesController < ApplicationController
-  before_action :fetch_issue, only: %i[show update]
+  before_action :fetch_issue, only: %i[show update destroy]
 
   def search
     @issues = search_query
@@ -25,6 +25,11 @@ class Api::V1::IssuesController < ApplicationController
   def update
     @issue.update(issue_params)
     render_notice(t("issues.updated_successfully"))
+  end
+
+  def destroy
+    @issue.destroy
+    render_notice(t("issues.deleted_successfully"))
   end
 
   private
