@@ -35,3 +35,4 @@ en:
   issues:
     created_successfully: "Issue created successfully"
     updated_successfully: "Issue updated successfully"
+    deleted_successfully: "Issue deleted successfully"

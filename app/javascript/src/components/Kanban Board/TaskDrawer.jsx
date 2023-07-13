@@ -4,15 +4,28 @@ import React from "react";
 import { Drawer, Spin } from "antd";
 
 import TaskForm from "components/Kanban Board/TaskForm";
-import { useFetchIssue } from "hooks/useIssues";
+import { useFetchIssue, useDestroyIssue } from "hooks/useIssues";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const TaskDrawer = ({ onClose, issueId }) => {
+  const { mutateAsync: destroyIssue } = useDestroyIssue();
+
   const { data, isLoading, isFetching } = useFetchIssue(issueId);
 
   const issue = data?.data;
 
+  const deleteIssue = () => {
+    destroyIssue(issueId, { onSuccess: onClose() });
+  };
+
   return (
-    <Drawer open={issueId} placement="right" title="Issue" onClose={onClose}>
+    <Drawer
+      extra={<DeleteOutlined onClick={deleteIssue} />}
+      open={issueId}
+      placement="right"
+      title="Issue"
+      onClose={onClose}
+    >
       {isLoading || isFetching ? (
         <div className="modal-loader">
           <Spin tip="Loading">
