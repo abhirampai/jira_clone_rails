@@ -9,7 +9,7 @@ class Api::V1::IssuesController < ApplicationController
   end
 
   def index
-    @issues = Issue.all.group_by(&:board)
+    @issues = current_user_issues.all.group_by(&:board)
     render
   end
 
@@ -39,10 +39,10 @@ class Api::V1::IssuesController < ApplicationController
     end
 
     def search_query
-      Issue.ransack(summary_or_description_cont: params[:search]).result.distinct
+      current_user_issues.ransack(summary_or_description_cont: params[:search]).result.distinct
     end
 
     def fetch_issue
-      @issue = Issue.find_by(id: params[:id])
+      @issue = current_user_issues.find_by(id: params[:id])
     end
 end

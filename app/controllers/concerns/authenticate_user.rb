@@ -5,6 +5,7 @@ module AuthenticateUser
 
   included do
     before_action :authenticate_user_using_x_auth_token
+    helper_method :current_user_issues
   end
 
   private
@@ -25,5 +26,9 @@ module AuthenticateUser
 
     def current_user
       @current_user
+    end
+
+    def current_user_issues
+      @_current_user_issues ||= Issue.where(owner: @current_user)
     end
 end

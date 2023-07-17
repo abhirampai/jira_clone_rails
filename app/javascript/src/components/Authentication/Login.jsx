@@ -14,7 +14,7 @@ const Login = () => {
     login(values, {
       onSuccess: ({ data: { authentication_token, email, name } }) => {
         setToLocalStorage("authToken", authentication_token);
-        setToLocalStorage("email", email);
+        setToLocalStorage("authEmail", email);
         setToLocalStorage("name", name);
         setAuthHeaders();
         window.location.href = "/";

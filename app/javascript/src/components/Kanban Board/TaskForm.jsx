@@ -62,6 +62,7 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
 
   return (
     <Form
+      autoComplete="off"
       form={form}
       initialValues={intialValues}
       layout="vertical"
