@@ -1,7 +1,9 @@
 import React from "react";
 
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Typography } from "antd";
+
+const { Title } = Typography;
 
 const HeaderBar = ({ openSearchModal, openCreateIssueModal }) => (
   <div className="flex justify-between w-full p-5">
@@ -12,6 +14,7 @@ const HeaderBar = ({ openSearchModal, openCreateIssueModal }) => (
     >
       Search Issues
     </Button>
+    <Title level={3}>Kanban board</Title>
     <Button
       className="items-center flex"
       icon={<PlusOutlined />}
