@@ -32,7 +32,7 @@ const Signup = () => {
       </Paragraph>
       <Form
         autoComplete="off"
-        className="w-1/4 border border-gray-300 p-5 bg-white"
+        className="md:w-1/4 border border-gray-300 p-5 bg-white"
         layout="vertical"
         onFinish={onFinish}
       >
