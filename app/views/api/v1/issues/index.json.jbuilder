@@ -14,4 +14,4 @@ json.issues @issues do |board, issues|
   json.board_total_count issues.size
 end
 
-json.total_issues_count Issue.all.size
+json.total_issues_count current_user_issues.size

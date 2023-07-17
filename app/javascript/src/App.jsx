@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Layout, Spin } from "antd";
+import { GithubFilled } from "@ant-design/icons";
+import { FloatButton, Layout, Spin } from "antd";
 import { either, isEmpty, isNil } from "ramda";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -57,6 +58,11 @@ const App = () => {
         </Router>
       </Layout>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      <FloatButton
+        href="https://www.github.com/abhirampai/kanban_board_rails"
+        icon={<GithubFilled />}
+        target="_blank"
+      />
     </QueryClientProvider>
   );
 };

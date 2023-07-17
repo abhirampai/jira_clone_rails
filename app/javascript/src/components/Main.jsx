@@ -66,7 +66,7 @@ const Main = () => {
       </Content>
       <Divider />
       <Footer className="bg-white text-center">
-        ©2023 Created by Abhiram Pai
+        ©2023 Created with &hearts; Abhiram Pai
       </Footer>
       <SearchModal
         open={searchModalOpen}
