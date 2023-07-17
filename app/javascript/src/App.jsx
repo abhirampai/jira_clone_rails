@@ -7,6 +7,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 import { setAuthHeaders, registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
+import Signup from "components/Authentication/Signup";
 import Main from "components/Main";
 
 import queryClient from "./queryClient";
@@ -38,6 +39,7 @@ const App = () => {
           <Layout className="pl-5 pr-6">
             <Switch>
               <Route exact path="/" render={() => <Main />} />
+              <Route exact path="/signup" render={() => <Signup />} />
             </Switch>
           </Layout>
         </Router>
