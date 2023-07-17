@@ -1,9 +1,13 @@
 import React from "react";
 
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import { Link, useHistory } from "react-router-dom";
 
 import { useSignup } from "hooks/useAuthentication";
+
+import LandingPage from "./LandingPage";
+
+const { Title, Paragraph } = Typography;
 
 const Signup = () => {
   const { mutateAsync: signup } = useSignup();
@@ -14,23 +18,18 @@ const Signup = () => {
   };
 
   return (
-    <div className="justify-center items-center flex flex-col w-full h-full">
-      <h2
-        className="mt-6 text-3xl font-extrabold leading-9
-          text-center text-bb-gray-700"
-      >
-        Register
-      </h2>
-      <div className="text-center mb-4">
+    <LandingPage>
+      <Title level={5}>Register</Title>
+      <Paragraph className="text-center mb-4">
         <Link
           to="/login"
-          className="mt-2 text-sm font-medium text-bb-purple
+          className="mt-2 font-medium text-bb-purple
             transition duration-150 ease-in-out focus:outline-none
             focus:underline"
         >
           Or Login Now
         </Link>
-      </div>
+      </Paragraph>
       <Form
         autoComplete="off"
         className="w-1/4 border border-gray-300 p-5 bg-white"
@@ -71,7 +70,7 @@ const Signup = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </LandingPage>
   );
 };
 
