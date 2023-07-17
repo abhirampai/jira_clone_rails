@@ -11,7 +11,7 @@ const { Title, Paragraph } = Typography;
 
 const Signup = () => {
   const { mutateAsync: signup } = useSignup();
-  const history = useHistory;
+  const history = useHistory();
 
   const onFinish = values => {
     signup(values, { onSuccess: history.push("/") });
