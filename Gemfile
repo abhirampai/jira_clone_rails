@@ -83,3 +83,5 @@ gem "pry-byebug"
 gem "ransack"
 
 gem "pg", group: [:production]
+
+gem "bcrypt", "~> 3.1.13"
