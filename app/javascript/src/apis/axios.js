@@ -1,8 +1,10 @@
 import axios from "axios";
 
 import Toastr from "common/Toastr";
-
-import { getFromLocalStorage } from "../utils/storage";
+import {
+  clearLocalStorageCredentials,
+  getFromLocalStorage,
+} from "utils/storage";
 
 axios.defaults.baseURL = "/";
 
@@ -37,6 +39,11 @@ const handleSuccessResponse = response => {
 };
 
 const handleErrorResponse = axiosErrorObject => {
+  if (axiosErrorObject.response?.status === 401) {
+    clearLocalStorageCredentials();
+    setTimeout(() => (window.location.href = "/"), 1000);
+  }
+
   Toastr.error(
     axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
   );
