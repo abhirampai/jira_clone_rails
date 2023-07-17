@@ -8,4 +8,6 @@ const login = payload =>
     login: payload,
   });
 
-export { signup, login };
+const logout = () => axios.delete(`/session`);
+
+export { signup, login, logout };

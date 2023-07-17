@@ -9,8 +9,8 @@ import {
   CheckCircleTwoTone,
 } from "@ant-design/icons";
 import { Input, Typography, Form, Select, Button, Divider } from "antd";
+import { createOptions } from "utils";
 
-import { createOptions } from "components/utils";
 import { useUpdateIssue, useCreateIssue } from "hooks/useIssues";
 
 const priorityIcons = {

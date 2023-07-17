@@ -20,7 +20,7 @@ class Issue < ApplicationRecord
     completed: 3
   }
 
-  belongs_to :user, foreign_key: :owner_id, class_name: "User"
+  belongs_to :owner, foreign_key: :owner_id, class_name: "User"
 
   validates :summary, presence: true
 

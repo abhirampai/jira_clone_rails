@@ -12,6 +12,7 @@ import PrivateRoute from "common/PrivateRoute";
 import Login from "components/Authentication/Login";
 import Signup from "components/Authentication/Signup";
 import Main from "components/Main";
+import NavBar from "components/Navbar/Navbar";
 import useLocalStorage from "hooks/useLocalStorage";
 
 import queryClient from "./queryClient";
@@ -41,7 +42,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Layout hasSider className="min-h-screen">
         <Router>
-          {/* <NavBar /> */}
+          {isLoggedIn && <NavBar />}
           <Layout className="pl-5 pr-6">
             <Switch>
               <Route exact path="/signup" render={() => <Signup />} />

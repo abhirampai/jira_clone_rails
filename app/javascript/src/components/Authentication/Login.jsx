@@ -5,21 +5,17 @@ import { Link } from "react-router-dom";
 
 import { setAuthHeaders } from "apis/axios";
 import { useLogin } from "hooks/useAuthentication";
-import useLocalStorage from "hooks/useLocalStorage";
+import { setToLocalStorage } from "utils/storage";
 
 const Login = () => {
-  const [, setAuthToken] = useLocalStorage("authToken");
-  const [, setAuthEmail] = useLocalStorage("authEmail");
-  const [, setUserName] = useLocalStorage("userName");
-
   const { mutateAsync: login } = useLogin();
 
   const onFinish = values => {
     login(values, {
       onSuccess: ({ data: { authentication_token, email, name } }) => {
-        setAuthToken(authentication_token);
-        setAuthEmail(email);
-        setUserName(name);
+        setToLocalStorage("authToken", authentication_token);
+        setToLocalStorage("email", email);
+        setToLocalStorage("name", name);
         setAuthHeaders();
         window.location.href = "/";
       },

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // eslint-disable-next-line import/order
 import { Typography, Layout, theme, Divider, Spin } from "antd";
+import { findIssues } from "utils";
 
 import { useFetchAllIssues } from "hooks/useIssues";
 
@@ -9,7 +10,6 @@ import CreateIssue from "./CreateIssue";
 import HeaderBar from "./Header/HeaderBar";
 import Board from "./Kanban Board/Board";
 import SearchModal from "./SearchModal";
-import { findIssues } from "./utils";
 
 const { Title } = Typography;
 

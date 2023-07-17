@@ -18,12 +18,11 @@ class Api::V1::IssuesController < ApplicationController
   end
 
   def create
-    @issue = Issue.create!(issue_params)
+    @issue = Issue.create!(issue_params.merge(owner_id: current_user.id))
     render_notice(t("successfully_created", entity: "Issue"))
   end
 
   def update
-    binding.pry
     @issue.update!(issue_params)
     render_notice(t("successfully_updated", entity: "Issue"))
   end
