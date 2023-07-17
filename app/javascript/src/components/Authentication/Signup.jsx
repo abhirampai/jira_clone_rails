@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, Spin, Typography } from "antd";
 import { Link, useHistory } from "react-router-dom";
 
 import { useSignup } from "hooks/useAuthentication";
@@ -10,12 +10,22 @@ import LandingPage from "./LandingPage";
 const { Title, Paragraph } = Typography;
 
 const Signup = () => {
-  const { mutateAsync: signup } = useSignup();
+  const { mutateAsync: signup, isLoading, isFetching } = useSignup();
   const history = useHistory();
 
   const onFinish = values => {
     signup(values, { onSuccess: history.push("/") });
   };
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="loader">
+        <Spin size="large" tip="Logging in...">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
+  }
 
   return (
     <LandingPage>

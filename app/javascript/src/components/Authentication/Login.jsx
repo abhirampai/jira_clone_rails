@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, Spin, Typography } from "antd";
 import { Link } from "react-router-dom";
 
 import { setAuthHeaders } from "apis/axios";
@@ -12,7 +12,7 @@ import LandingPage from "./LandingPage";
 const { Title, Paragraph } = Typography;
 
 const Login = () => {
-  const { mutateAsync: login } = useLogin();
+  const { mutateAsync: login, isLoading, isFetching } = useLogin();
 
   const onFinish = values => {
     login(values, {
@@ -25,6 +25,16 @@ const Login = () => {
       },
     });
   };
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="loader">
+        <Spin size="large" tip="Logging in...">
+          <div className="content" />
+        </Spin>
+      </div>
+    );
+  }
 
   return (
     <LandingPage>
