@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 
 import { Layout, Spin } from "antd";
+import { either, isEmpty, isNil } from "ramda";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 import { setAuthHeaders, registerIntercepts } from "apis/axios";
 import { initializeLogger } from "common/logger";
+import PrivateRoute from "common/PrivateRoute";
+import Login from "components/Authentication/Login";
 import Signup from "components/Authentication/Signup";
 import Main from "components/Main";
+import useLocalStorage from "hooks/useLocalStorage";
 
 import queryClient from "./queryClient";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [authToken] = useLocalStorage("authToken");
+  const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
   useEffect(() => {
     initializeLogger();
@@ -38,8 +44,14 @@ const App = () => {
           {/* <NavBar /> */}
           <Layout className="pl-5 pr-6">
             <Switch>
-              <Route exact path="/" render={() => <Main />} />
               <Route exact path="/signup" render={() => <Signup />} />
+              <Route exact path="/login" render={() => <Login />} />
+              <PrivateRoute
+                component={Main}
+                condition={isLoggedIn}
+                path="/"
+                redirectRoute="/login"
+              />
             </Switch>
           </Layout>
         </Router>

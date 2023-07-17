@@ -20,6 +20,8 @@ class Issue < ApplicationRecord
     completed: 3
   }
 
+  belongs_to :user, foreign_key: :owner_id, class_name: "User"
+
   validates :summary, presence: true
 
   def self.ransackable_associations(auth_object = nil)

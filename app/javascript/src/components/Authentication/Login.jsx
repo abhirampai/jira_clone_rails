@@ -1,16 +1,29 @@
 import React from "react";
 
 import { Button, Form, Input } from "antd";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { useSignup } from "hooks/useAuthentication";
+import { setAuthHeaders } from "apis/axios";
+import { useLogin } from "hooks/useAuthentication";
+import useLocalStorage from "hooks/useLocalStorage";
 
-const Signup = () => {
-  const { mutateAsync: signup } = useSignup();
-  const history = useHistory;
+const Login = () => {
+  const [, setAuthToken] = useLocalStorage("authToken");
+  const [, setAuthEmail] = useLocalStorage("authEmail");
+  const [, setUserName] = useLocalStorage("userName");
+
+  const { mutateAsync: login } = useLogin();
 
   const onFinish = values => {
-    signup(values, { onSuccess: history.push("/") });
+    login(values, {
+      onSuccess: ({ data: { authentication_token, email, name } }) => {
+        setAuthToken(authentication_token);
+        setAuthEmail(email);
+        setUserName(name);
+        setAuthHeaders();
+        window.location.href = "/";
+      },
+    });
   };
 
   return (
@@ -19,16 +32,16 @@ const Signup = () => {
         className="mt-6 text-3xl font-extrabold leading-9
           text-center text-bb-gray-700"
       >
-        Register
+        Sign In
       </h2>
       <div className="text-center mb-4">
         <Link
-          to="/login"
+          to="/signup"
           className="mt-2 text-sm font-medium text-bb-purple
             transition duration-150 ease-in-out focus:outline-none
             focus:underline"
         >
-          Or Login Now
+          Or Register Now
         </Link>
       </div>
       <Form
@@ -37,13 +50,6 @@ const Signup = () => {
         layout="vertical"
         onFinish={onFinish}
       >
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please input your name!" }]}
-        >
-          <Input />
-        </Form.Item>
         <Form.Item
           label="Email"
           name="email"
@@ -58,13 +64,6 @@ const Signup = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item
-          label="Password Confirmation"
-          name="password_confirmation"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password />
-        </Form.Item>
         <Form.Item>
           <Button htmlType="submit" type="primary">
             Submit
@@ -75,4 +74,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

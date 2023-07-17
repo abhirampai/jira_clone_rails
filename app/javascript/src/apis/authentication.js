@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const authenticationUrl = "/signup";
-const signup = payload =>
-  axios.post(`${authenticationUrl}`, JSON.stringify(payload));
+const authenticationUrl = "/api/v1/users";
+const signup = payload => axios.post(`${authenticationUrl}`, { user: payload });
 
-export { signup };
+const login = payload =>
+  axios.post("/session", {
+    login: payload,
+  });
+
+export { signup, login };

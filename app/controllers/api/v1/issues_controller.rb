@@ -18,18 +18,19 @@ class Api::V1::IssuesController < ApplicationController
   end
 
   def create
-    @issue = Issue.create(issue_params)
-    render_notice(t("issues.created_successfully"))
+    @issue = Issue.create!(issue_params)
+    render_notice(t("successfully_created", entity: "Issue"))
   end
 
   def update
-    @issue.update(issue_params)
-    render_notice(t("issues.updated_successfully"))
+    binding.pry
+    @issue.update!(issue_params)
+    render_notice(t("successfully_updated", entity: "Issue"))
   end
 
   def destroy
     @issue.destroy
-    render_notice(t("issues.deleted_successfully"))
+    render_notice(t("successfully_deleted", entity: "Issue"))
   end
 
   private
