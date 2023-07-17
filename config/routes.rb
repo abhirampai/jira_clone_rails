@@ -9,8 +9,10 @@ Rails.application.routes.draw do
             get :search
           end
         end
+        resources :users, only: [:create]
       end
     end
+    resource :session, only: %i[create destroy]
   end
 
   root "home#index"

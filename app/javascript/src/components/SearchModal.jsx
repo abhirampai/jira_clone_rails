@@ -42,7 +42,7 @@ const SearchModal = ({ open, onClose }) => {
     >
       <Search
         allowClear
-        placeholder="input search text"
+        placeholder="Search text"
         value={searchQuery}
         onChange={e => setSearchQuery(e.target.value)}
       />

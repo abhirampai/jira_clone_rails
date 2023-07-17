@@ -1,3 +1,5 @@
+import { either, isEmpty, isNil, not, pipe } from "ramda";
+
 export const findIssues = (board, issues) =>
   issues.find(issue => issue.board === board);
 
@@ -7,3 +9,5 @@ export const createOptions = (labels, icon) =>
     value: index,
     icon: icon[label],
   }));
+
+export const isPresent = pipe(either(isNil, isEmpty), not);

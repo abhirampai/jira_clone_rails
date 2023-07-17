@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 // eslint-disable-next-line import/order
-import { Typography, Layout, theme, Divider, Spin } from "antd";
+import { Layout, theme, Divider, Spin } from "antd";
+import { findIssues } from "utils";
 
 import { useFetchAllIssues } from "hooks/useIssues";
 
@@ -9,9 +10,6 @@ import CreateIssue from "./CreateIssue";
 import HeaderBar from "./Header/HeaderBar";
 import Board from "./Kanban Board/Board";
 import SearchModal from "./SearchModal";
-import { findIssues } from "./utils";
-
-const { Title } = Typography;
 
 const { Header, Content, Footer } = Layout;
 
@@ -54,10 +52,7 @@ const Main = () => {
           overflow: "initial",
         }}
       >
-        <Title className="p-8" level={3}>
-          Kanban board
-        </Title>
-        <div className="grid grid-cols-1 lg:grid-cols-4 lg:px-10 px-2 row-gap-2 lg:col-gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-4 lg:px-10 px-2 row-gap-2 lg:col-gap-2 mt-4">
           {boards.map(board => (
             <Board
               boardName={board}

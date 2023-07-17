@@ -9,6 +9,7 @@ module.exports = {
     common: absolutePath("src/common"),
     components: absolutePath("src/components"),
     hooks: absolutePath("src/hooks"),
+    utils: absolutePath("src/utils"),
   },
   extensions: [
     ".ts",
