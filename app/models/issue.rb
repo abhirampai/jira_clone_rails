@@ -24,11 +24,17 @@ class Issue < ApplicationRecord
 
   validates :summary, presence: true
 
+  delegate :name, to: :owner, prefix: :owner
+
   def self.ransackable_associations(auth_object = nil)
     []
   end
 
   def self.ransackable_attributes(auth_object = nil)
     ["board", "created_at", "description", "id", "issue_type", "priority", "summary", "updated_at"]
+  end
+
+  def display_name
+    "Issue-#{id}"
   end
 end

@@ -8,7 +8,7 @@ import {
   BugTwoTone,
   CheckCircleTwoTone,
 } from "@ant-design/icons";
-import { Input, Typography, Form, Select, Button, Divider } from "antd";
+import { Input, Typography, Form, Select, Button, Divider, Avatar } from "antd";
 import { createOptions } from "utils";
 
 import { useUpdateIssue, useCreateIssue } from "hooks/useIssues";
@@ -98,6 +98,13 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
           ))}
         </Select>
       </Form.Item>
+      {type === "edit" && (
+        <div className="flex space-x-2 items-center">
+          <label>Created by:</label>
+          <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+          <label>{issue.owner_name}</label>
+        </div>
+      )}
       <div className="absolute bottom-0 left-0 w-full">
         <Divider style={{ width: "100%" }} />
         <Form.Item>

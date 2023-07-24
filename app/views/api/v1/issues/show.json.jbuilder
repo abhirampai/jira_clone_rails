@@ -5,4 +5,6 @@ json.extract! @issue,
   :summary,
   :priority,
   :issue_type,
-  :description
+  :description,
+  :display_name,
+  :owner_name

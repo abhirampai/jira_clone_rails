@@ -23,7 +23,7 @@ const TaskDrawer = ({ onClose, issueId }) => {
       extra={<DeleteOutlined onClick={deleteIssue} />}
       open={issueId}
       placement="right"
-      title="Issue"
+      title={issue?.display_name || "Issue"}
       onClose={onClose}
     >
       {isLoading || isFetching ? (
