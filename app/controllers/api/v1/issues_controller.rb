@@ -35,7 +35,7 @@ class Api::V1::IssuesController < ApplicationController
   private
 
     def issue_params
-      params.require(:issue).permit(:summary, :description, :issue_type, :priority, :board)
+      params.require(:issue).permit(:summary, :description, :issue_type, :priority, :board, :parent_issue_id)
     end
 
     def search_query

@@ -7,7 +7,7 @@ import { useCreateIssue } from "hooks/useIssues";
 import Footer from "./Common/Footer";
 import TaskForm from "./Kanban Board/TaskForm";
 
-const CreateIssue = ({ open, onClose }) => {
+const CreateIssue = ({ open, onClose, parentId = null }) => {
   const [form] = Form.useForm();
 
   const { mutateAsync: createIssue } = useCreateIssue();
@@ -21,6 +21,7 @@ const CreateIssue = ({ open, onClose }) => {
 
   const onSubmit = async form => {
     const values = await form.validateFields();
+    values.parent_issue_id = parentId;
     createIssue(values, { onSuccess: onClose() });
   };
 
