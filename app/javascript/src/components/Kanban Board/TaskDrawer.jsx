@@ -7,6 +7,7 @@ import {
   Drawer,
   Dropdown,
   Form,
+  Popconfirm,
   Spin,
   Table,
   Typography,
@@ -87,7 +88,15 @@ const TaskDrawer = ({ onClose, issueId }) => {
 
   const extraButton = (
     <div className="flex items-center space-x-2">
-      <DeleteOutlined className="text-lg" onClick={deleteIssue} />
+      <Popconfirm
+        cancelText="No"
+        description="Are you sure to delete this issue?"
+        okText="Yes"
+        title="Delete the issue"
+        onConfirm={deleteIssue}
+      >
+        <DeleteOutlined className="text-lg" />
+      </Popconfirm>
       {!issue?.parent_id && (
         <Dropdown menu={{ items: extraItems }} trigger={["click"]}>
           <EllipsisOutlined rotate="90" />
