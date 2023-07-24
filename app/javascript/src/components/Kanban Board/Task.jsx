@@ -1,35 +1,17 @@
 import React from "react";
 
-import {
-  BookTwoTone,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  LineOutlined,
-  BugTwoTone,
-  CheckCircleTwoTone,
-} from "@ant-design/icons";
-import { Typography, Avatar } from "antd";
+import { Typography, Avatar, Tooltip } from "antd";
+import { PRIORITY_ICONS, ISSUE_TYPE_ICONS } from "common";
+import { capitalize } from "utils";
 
 const { Paragraph } = Typography;
-
-const priorityIcons = {
-  high: ArrowUpOutlined,
-  low: ArrowDownOutlined,
-  medium: LineOutlined,
-};
-
-const issueTypeIcons = {
-  story: BookTwoTone,
-  bug: BugTwoTone,
-  task: CheckCircleTwoTone,
-};
 
 const noop = () => {};
 
 const Task = ({ issue, setSelectedId = noop }) => {
   const { summary, priority, issue_type } = issue;
-  const PriorityIcon = priorityIcons[priority];
-  const IssueTypeIcon = issueTypeIcons[issue_type];
+  const PriorityIcon = PRIORITY_ICONS[priority];
+  const IssueTypeIcon = ISSUE_TYPE_ICONS[issue_type];
 
   const handleOnDrag = (e, issue) => {
     e.dataTransfer.setData("draggedIssue", JSON.stringify(issue));
@@ -47,8 +29,12 @@ const Task = ({ issue, setSelectedId = noop }) => {
       </Paragraph>
       <div className="flex py-2 justify-between items-center">
         <div className="flex space-x-2 items-center">
-          <IssueTypeIcon className="text-lg" />
-          <PriorityIcon className="text-lg" />
+          <Tooltip placement="bottom" title={capitalize(issue_type)}>
+            <IssueTypeIcon className="text-lg" />
+          </Tooltip>
+          <Tooltip placement="bottom" title={capitalize(priority)}>
+            <PriorityIcon className="text-lg" />
+          </Tooltip>
         </div>
         <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
       </div>

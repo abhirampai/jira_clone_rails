@@ -1,57 +1,28 @@
 import React from "react";
 
-import {
-  BookTwoTone,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  LineOutlined,
-  BugTwoTone,
-  CheckCircleTwoTone,
-} from "@ant-design/icons";
-import { Input, Typography, Form, Select, Button, Divider } from "antd";
+import { Input, Typography, Form, Select, Avatar } from "antd";
+import { PRIORITY_ICONS, ISSUE_TYPE_ICONS } from "common";
 import { createOptions } from "utils";
-
-import { useUpdateIssue, useCreateIssue } from "hooks/useIssues";
-
-const priorityIcons = {
-  high: ArrowUpOutlined,
-  low: ArrowDownOutlined,
-  medium: LineOutlined,
-};
-
-const issueTypeIcons = {
-  story: BookTwoTone,
-  bug: BugTwoTone,
-  task: CheckCircleTwoTone,
-};
 
 const { Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 
-const priorityOptions = createOptions(["medium", "low", "high"], priorityIcons);
+const priorityOptions = createOptions(
+  ["medium", "low", "high"],
+  PRIORITY_ICONS
+);
 
 const issueTypeOptions = createOptions(
   ["task", "bug", "story"],
-  issueTypeIcons
+  ISSUE_TYPE_ICONS
 );
 
-const TaskForm = ({ issue, onClose, type = "edit" }) => {
-  const [form] = Form.useForm();
+const TaskForm = ({ issue, type = "edit", form }) => {
   const { summary, description, priority, issue_type } = issue;
-  const { mutateAsync: updateIssue } = useUpdateIssue();
-  const { mutateAsync: createIssue } = useCreateIssue();
 
   const findDefaultValue = (value, list) =>
     list.find(({ label }) => label.toLowerCase() === value)?.value;
-
-  const onSubmit = values => {
-    if (type === "edit") {
-      updateIssue({ id: issue.id, payload: values }, { onSuccess: onClose() });
-    } else {
-      createIssue(values, { onSuccess: onClose() });
-    }
-  };
 
   const intialValues = {
     summary,
@@ -66,7 +37,6 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
       form={form}
       initialValues={intialValues}
       layout="vertical"
-      onFinish={onSubmit}
     >
       <Form.Item label="Summary" name="summary">
         <Input value={summary} />
@@ -98,19 +68,13 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
           ))}
         </Select>
       </Form.Item>
-      <div className="absolute bottom-0 left-0 w-full">
-        <Divider style={{ width: "100%" }} />
-        <Form.Item>
-          <div className="flex space-x-4 justify-end pr-5">
-            <Button htmlType="submit" type="primary">
-              Submit
-            </Button>
-            <Button htmlType="button" onClick={onClose}>
-              Close
-            </Button>
-          </div>
-        </Form.Item>
-      </div>
+      {type === "edit" && (
+        <div className="flex space-x-2 items-center">
+          <label>Created by:</label>
+          <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+          <label>{issue.owner_name}</label>
+        </div>
+      )}
     </Form>
   );
 };

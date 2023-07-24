@@ -18,10 +18,15 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, on: :create
 
   before_save :to_lowercase
+  before_save :titleize_name
 
   private
 
     def to_lowercase
       email.downcase!
+    end
+
+    def titleize_name
+      name.titleize
     end
 end

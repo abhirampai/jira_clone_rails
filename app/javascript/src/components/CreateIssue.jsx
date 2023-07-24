@@ -1,10 +1,17 @@
 import React from "react";
 
-import { Modal } from "antd";
+import { Form, Modal } from "antd";
 
+import { useCreateIssue } from "hooks/useIssues";
+
+import Footer from "./Common/Footer";
 import TaskForm from "./Kanban Board/TaskForm";
 
-const CreateIssue = ({ open, onClose }) => {
+const CreateIssue = ({ open, onClose, parentId = null }) => {
+  const [form] = Form.useForm();
+
+  const { mutateAsync: createIssue } = useCreateIssue();
+
   const issue = {
     summary: "",
     description: "",
@@ -12,10 +19,16 @@ const CreateIssue = ({ open, onClose }) => {
     priority: "low",
   };
 
+  const onSubmit = async form => {
+    const values = await form.validateFields();
+    values.parent_issue_id = parentId;
+    createIssue(values, { onSuccess: onClose() });
+  };
+
   return (
     <Modal
       closable
-      footer={null}
+      footer={<Footer form={form} onClose={onClose} onSubmit={onSubmit} />}
       open={open}
       title="Create issue"
       bodyStyle={{
@@ -23,7 +36,7 @@ const CreateIssue = ({ open, onClose }) => {
       }}
       onCancel={onClose}
     >
-      <TaskForm issue={issue} type="create" onClose={onClose} />
+      <TaskForm form={form} issue={issue} type="create" />
     </Modal>
   );
 };
