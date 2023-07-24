@@ -1,7 +1,18 @@
-/* eslint-disable import/order */
 import React, { useState } from "react";
 
-import { Breadcrumb, Button, Drawer, Dropdown, Form, Spin } from "antd";
+import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
+import {
+  Breadcrumb,
+  Button,
+  Drawer,
+  Dropdown,
+  Form,
+  Spin,
+  Table,
+  Typography,
+} from "antd";
+import { ISSUE_TYPE_ICONS, PRIORITY_ICONS } from "common";
+import { capitalize } from "utils";
 
 import TaskForm from "components/Kanban Board/TaskForm";
 import {
@@ -10,7 +21,7 @@ import {
   useUpdateIssue,
 } from "hooks/useIssues";
 import useIssueStore from "hooks/useIssueStore";
-import { DeleteOutlined, EllipsisOutlined } from "@ant-design/icons";
+
 import Footer from "../Common/Footer";
 import CreateIssue from "../CreateIssue";
 
@@ -85,6 +96,40 @@ const TaskDrawer = ({ onClose, issueId }) => {
     </div>
   );
 
+  const TABLE_COLUMNS = [
+    { title: "Issue", dataIndex: "display_name", key: "display_name" },
+    {
+      title: "Priority",
+      dataIndex: "priority",
+      key: "priority",
+      render: (_, { priority }) => {
+        const PriorityIcon = PRIORITY_ICONS[priority];
+
+        return (
+          <div className="flex items-center space-x-2 pt-1">
+            <PriorityIcon />
+            <Typography.Text>{capitalize(priority)}</Typography.Text>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Type",
+      dataIndex: "issue_type",
+      key: "issue_type",
+      render: (_, { issue_type }) => {
+        const IssueTypeIcon = ISSUE_TYPE_ICONS[issue_type];
+
+        return (
+          <div className="flex items-center space-x-2 pt-1">
+            <IssueTypeIcon />
+            <Typography.Text>{capitalize(issue_type)}</Typography.Text>
+          </div>
+        );
+      },
+    },
+  ];
+
   return (
     <>
       <Drawer
@@ -102,7 +147,23 @@ const TaskDrawer = ({ onClose, issueId }) => {
             </Spin>
           </div>
         ) : (
-          <TaskForm form={form} issue={issue} />
+          <>
+            <TaskForm form={form} issue={issue} />
+            {issue?.sub_issues && (
+              <div className="flex flex-col space-y-5 mt-5 w-full">
+                <label className="font-bold">Sub Issues:</label>
+                <Table
+                  columns={TABLE_COLUMNS}
+                  dataSource={issue.sub_issues}
+                  pagination={false}
+                  size="small"
+                  onRow={record => ({
+                    onClick: () => setIssueId(record.id),
+                  })}
+                />
+              </div>
+            )}
+          </>
         )}
       </Drawer>
       {createSubIssueModal && (

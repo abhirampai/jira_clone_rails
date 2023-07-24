@@ -1,35 +1,16 @@
 import React from "react";
 
-import {
-  BookTwoTone,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  LineOutlined,
-  BugTwoTone,
-  CheckCircleTwoTone,
-} from "@ant-design/icons";
 import { Typography, Avatar } from "antd";
+import { PRIORITY_ICONS, ISSUE_TYPE_ICONS } from "common";
 
 const { Paragraph } = Typography;
-
-const priorityIcons = {
-  high: ArrowUpOutlined,
-  low: ArrowDownOutlined,
-  medium: LineOutlined,
-};
-
-const issueTypeIcons = {
-  story: BookTwoTone,
-  bug: BugTwoTone,
-  task: CheckCircleTwoTone,
-};
 
 const noop = () => {};
 
 const Task = ({ issue, setSelectedId = noop }) => {
   const { summary, priority, issue_type } = issue;
-  const PriorityIcon = priorityIcons[priority];
-  const IssueTypeIcon = issueTypeIcons[issue_type];
+  const PriorityIcon = PRIORITY_ICONS[priority];
+  const IssueTypeIcon = ISSUE_TYPE_ICONS[issue_type];
 
   const handleOnDrag = (e, issue) => {
     e.dataTransfer.setData("draggedIssue", JSON.stringify(issue));

@@ -1,37 +1,21 @@
 import React from "react";
 
-import {
-  BookTwoTone,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  LineOutlined,
-  BugTwoTone,
-  CheckCircleTwoTone,
-} from "@ant-design/icons";
 import { Input, Typography, Form, Select, Avatar } from "antd";
+import { PRIORITY_ICONS, ISSUE_TYPE_ICONS } from "common";
 import { createOptions } from "utils";
-
-const priorityIcons = {
-  high: ArrowUpOutlined,
-  low: ArrowDownOutlined,
-  medium: LineOutlined,
-};
-
-const issueTypeIcons = {
-  story: BookTwoTone,
-  bug: BugTwoTone,
-  task: CheckCircleTwoTone,
-};
 
 const { Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 
-const priorityOptions = createOptions(["medium", "low", "high"], priorityIcons);
+const priorityOptions = createOptions(
+  ["medium", "low", "high"],
+  PRIORITY_ICONS
+);
 
 const issueTypeOptions = createOptions(
   ["task", "bug", "story"],
-  issueTypeIcons
+  ISSUE_TYPE_ICONS
 );
 
 const TaskForm = ({ issue, type = "edit", form }) => {

@@ -20,6 +20,7 @@ if @issue.sub_issues.present?
       :id,
       :summary,
       :priority,
-      :issue_type
+      :issue_type,
+      :display_name
   end
 end
