@@ -20,7 +20,7 @@ class Issue < ApplicationRecord
     completed: 3
   }
 
-  belongs_to :parent_issue, foreign_key: :parent_issue_id, class_name: "Issue"
+  belongs_to :parent_issue, foreign_key: :parent_issue_id, class_name: "Issue", required: false
   belongs_to :owner, foreign_key: :owner_id, class_name: "User"
 
   has_many :sub_issues, foreign_key: :parent_issue_id, class_name: "Issue"

@@ -8,10 +8,8 @@ import {
   BugTwoTone,
   CheckCircleTwoTone,
 } from "@ant-design/icons";
-import { Input, Typography, Form, Select, Button, Divider, Avatar } from "antd";
+import { Input, Typography, Form, Select, Avatar } from "antd";
 import { createOptions } from "utils";
-
-import { useUpdateIssue, useCreateIssue } from "hooks/useIssues";
 
 const priorityIcons = {
   high: ArrowUpOutlined,
@@ -36,22 +34,11 @@ const issueTypeOptions = createOptions(
   issueTypeIcons
 );
 
-const TaskForm = ({ issue, onClose, type = "edit" }) => {
-  const [form] = Form.useForm();
+const TaskForm = ({ issue, type = "edit", form }) => {
   const { summary, description, priority, issue_type } = issue;
-  const { mutateAsync: updateIssue } = useUpdateIssue();
-  const { mutateAsync: createIssue } = useCreateIssue();
 
   const findDefaultValue = (value, list) =>
     list.find(({ label }) => label.toLowerCase() === value)?.value;
-
-  const onSubmit = values => {
-    if (type === "edit") {
-      updateIssue({ id: issue.id, payload: values }, { onSuccess: onClose() });
-    } else {
-      createIssue(values, { onSuccess: onClose() });
-    }
-  };
 
   const intialValues = {
     summary,
@@ -66,7 +53,6 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
       form={form}
       initialValues={intialValues}
       layout="vertical"
-      onFinish={onSubmit}
     >
       <Form.Item label="Summary" name="summary">
         <Input value={summary} />
@@ -105,19 +91,6 @@ const TaskForm = ({ issue, onClose, type = "edit" }) => {
           <label>{issue.owner_name}</label>
         </div>
       )}
-      <div className="absolute bottom-0 left-0 w-full">
-        <Divider style={{ width: "100%" }} />
-        <Form.Item>
-          <div className="flex space-x-4 justify-end pr-5">
-            <Button htmlType="submit" type="primary">
-              Submit
-            </Button>
-            <Button htmlType="button" onClick={onClose}>
-              Close
-            </Button>
-          </div>
-        </Form.Item>
-      </div>
     </Form>
   );
 };
