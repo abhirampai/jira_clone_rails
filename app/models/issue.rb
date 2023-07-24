@@ -20,11 +20,16 @@ class Issue < ApplicationRecord
     completed: 3
   }
 
+  belongs_to :parent_issue, foreign_key: :parent_issue_id, class_name: "Issue"
   belongs_to :owner, foreign_key: :owner_id, class_name: "User"
+
+  has_many :sub_issues, foreign_key: :parent_issue_id, class_name: "Issue"
 
   validates :summary, presence: true
 
   delegate :name, to: :owner, prefix: :owner
+
+  delegate :display_name, to: :parent_issue, prefix: :parent
 
   def self.ransackable_associations(auth_object = nil)
     []
